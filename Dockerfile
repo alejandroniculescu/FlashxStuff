@@ -1,7 +1,7 @@
 # FlashX Docker image with ssh port forwarding and general ubuntu hackery
 
 FROM ubuntu:14.04
-MAINTAINER Alexander Niculescu <al3xander.niculescu@gmail.com>
+MAINTAINER Alexander Niculescu
 
 #SSH packages
 RUN apt-get update && apt-get install -y openssh-server
