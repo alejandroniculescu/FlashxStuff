@@ -1,9 +1,9 @@
 # FlashX Docker image with ssh port forwarding and general ubuntu hackery
 
-
 FROM ubuntu:14.04
 MAINTAINER Alexander Niculescu <al3xander.niculescu@gmail.com>
 
+#SSH packages
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 RUN echo 'root:screencast' | chpasswd
@@ -12,10 +12,10 @@ RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/ss
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-
 ###FLASHX CONF COMBINED FROM DOCKERFILE &&FLASHX QUICKSTART###
 #https://github.com/icoming/FlashX/wiki/FlashX-Quick-Start-Guide
 #https://github.com/wking/dockerfile
+#Credits to Da Zheng for the original (JHU)
 
 RUN sudo apt-get update
 RUN sudo apt-get update
@@ -49,18 +49,14 @@ RUN sudo su - -c "R -e \"install.packages('igraph', repos = 'http://cran.rstudio
 WORKDIR /FlashX
 RUN ./install_FlashR.sh
 
-#check to see if it's there ^^^?
-
 ####R finished####
 
-
+##Run FlashX Demo
 CMD wget http://snap.stanford.edu/data/wiki-Vote.txt.gz
 CMD gunzip wiki-Vote.txt.gz
 CMD build/matrix/utils/el2fg conf/run_test.txt wiki-Vote.txt wiki-Vote
 
 CMD build/flash-graph/test-algs/test_algs flash-graph/conf/run_test.txt wiki-Vote.adj wiki-Vote.index wcc
-
-
 ###FLASHX CONF END ###
 
 
