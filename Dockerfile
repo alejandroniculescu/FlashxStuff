@@ -44,9 +44,9 @@ RUN ./install_FlashR.sh
 ####R finished####
 
 ##Run FlashX Demo
-CMD wget http://snap.stanford.edu/data/wiki-Vote.txt.gz
-CMD gunzip wiki-Vote.txt.gz
-CMD build/matrix/utils/el2fg conf/run_test.txt wiki-Vote.txt wiki-Vote
+RUN wget http://snap.stanford.edu/data/wiki-Vote.txt.gz
+RUN gunzip wiki-Vote.txt.gz
+RUN build/matrix/utils/el2fg conf/run_test.txt wiki-Vote.txt wiki-Vote
 
 CMD build/flash-graph/test-algs/test_algs flash-graph/conf/run_test.txt wiki-Vote.adj wiki-Vote.index wcc
 ###FLASHX CONF END ###
